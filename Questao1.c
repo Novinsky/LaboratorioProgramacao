@@ -1,8 +1,7 @@
 //Questão 1 LAB.PROGRAM
 #include<stdio.h>
 
-float nota_valida(float nota1, float nota2, float nota3)
-{
+float nota_valida(float nota1, float nota2, float nota3){
   int aux;
   float vetor[3], menor, nota_selecionada;
     vetor[0] = nota1;
@@ -32,10 +31,17 @@ void nota_final(float *originalidade,float *beleza){
 
 int main() {
 
-  int i, id_inscricao, repete = 2;
-  float notas[3], nota_teste, x, nota_originalidade, nota_beleza;
+  int i, id_competidor, repete, id_campeao;
+  float notas[3], nota_teste, x, nota_originalidade, nota_beleza, maior_nota = -1, NotaImunda;
   float *originalidade, *beleza;
 
+  do{
+  printf("Digite o id do competidor: ");
+  scanf("%d", &id_competidor);
+  repete = 2;
+  if(id_competidor == 0){
+    break;
+  }
   while(repete > 0){
   if (repete == 2)
     printf("NOTAS DO CRITERIO ORIGINALIDADE!!!\n");
@@ -64,7 +70,18 @@ int main() {
   beleza = &nota_beleza;
   printf("A nota final do candidato foi: ");
   nota_final(originalidade, beleza);
+  NotaImunda = (nota_originalidade * 0.6) + (nota_beleza * 0.4);
+  if(maior_nota < NotaImunda){
+    maior_nota = NotaImunda;
+    id_campeao = id_competidor;
+  }
+  }while(1);
 
-
+  if(maior_nota < 0){
+    printf("Nenhum competidor cadastrado!!!\n");
+  }
+  else{
+    printf("O vencedor foi o competidor de id: %d com uma nota de %.2f!!!\n", id_campeao, maior_nota);
+  }
   return 0;
 }
